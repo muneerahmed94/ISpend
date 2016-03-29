@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="150dp"
+    android:background="@drawable/navigation_drawer_header_background">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/account"
+        android:layout_above="@+id/navigationDrawerHeaderName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Muneer Ahmed"
+        android:id="@+id/navigationDrawerHeaderName"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:layout_above="@+id/navigationDrawerHeaderEmail"
+        android:layout_alignLeft="@+id/navigationDrawerHeaderEmail"
+        android:layout_alignStart="@+id/navigationDrawerHeaderEmail" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="muneerahmed94@gmail.com"
+        android:id="@+id/navigationDrawerHeaderEmail"
+        android:textColor="#ffffff"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginBottom="23dp" />
+</RelativeLayout>
