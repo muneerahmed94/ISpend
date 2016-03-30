@@ -73,12 +73,7 @@ public class SetupBudgetFragment extends Fragment {
         buttonSetupBudget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stringFood = editTextFood.getText().toString();
-                stringEntertainment = editTextEntertainment.getText().toString();
-                stringElectronics = editTextElectronics.getText().toString();
-                stringFashion = editTextFashion.getText().toString();
-                stringOther = editTextOther.getText().toString();
-
+                readInput();
                 Integer total = Integer.parseInt(stringFood) + Integer.parseInt(stringEntertainment) + Integer.parseInt(stringElectronics) + Integer.parseInt(stringFashion) + Integer.parseInt(stringOther);
                 String stringTotal = total.toString();
 
@@ -137,28 +132,34 @@ public class SetupBudgetFragment extends Fragment {
 
         editTextFashion.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
-                if(editTextFashion.getText().toString().length() > 0) {
+                if (editTextFashion.getText().toString().length() > 0) {
                     updateTotalBudget();
-                }
-                else {
+                } else {
                     updateTotalBudget();
                 }
             }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
         });
 
         editTextOther.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
-                if(editTextOther.getText().toString().length() > 0) {
+                if (editTextOther.getText().toString().length() > 0) {
                     updateTotalBudget();
-                }
-                else {
+                } else {
                     updateTotalBudget();
                 }
             }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
         });
     }
 
@@ -169,30 +170,52 @@ public class SetupBudgetFragment extends Fragment {
     }
 
     private void readInput() {
-        if(editTextFood.getText().toString().length() > 0)
+        if(editTextFood.getText().toString().length() > 0) {
             floatFood = Float.parseFloat(editTextFood.getText().toString());
-        else
+            stringFood = editTextFood.getText().toString();
+        }
+
+        else {
             floatFood = (float)0;
+            stringFood = "0";
+        }
 
-        if(editTextEntertainment.getText().toString().length() > 0)
+
+        if(editTextEntertainment.getText().toString().length() > 0) {
             floatEntertainment = Float.parseFloat(editTextEntertainment.getText().toString());
-        else
+            stringEntertainment = editTextEntertainment.getText().toString();
+        }
+        else {
             floatEntertainment = (float)0;
+            stringEntertainment = "0";
+        }
 
-        if(editTextElectronics.getText().toString().length() > 0)
+        if(editTextElectronics.getText().toString().length() > 0) {
             floatElectronics = Float.parseFloat(editTextElectronics.getText().toString());
-        else
+            stringElectronics = editTextElectronics.getText().toString();
+        }
+        else {
             floatElectronics = (float)0;
+            stringElectronics = "0";
+        }
 
-        if(editTextFashion.getText().toString().length() > 0)
+        if(editTextFashion.getText().toString().length() > 0) {
             floatFashion = Float.parseFloat(editTextFashion.getText().toString());
-        else
+            stringFashion = editTextFashion.getText().toString();
+        }
+        else {
             floatFashion = (float)0;
+            stringFashion = "0";
+        }
 
-        if(editTextOther.getText().toString().length() > 0)
+        if(editTextOther.getText().toString().length() > 0) {
             floatOther = Float.parseFloat(editTextOther.getText().toString());
-        else
+            stringOther = editTextOther.getText().toString();
+        }
+        else {
             floatOther = (float)0;
+            stringOther = "0";
+        }
     }
 
     private void highlightTextViewsOnEditTextFocus() {

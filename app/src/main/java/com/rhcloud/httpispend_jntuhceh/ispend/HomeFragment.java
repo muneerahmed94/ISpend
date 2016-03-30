@@ -168,22 +168,25 @@ public class HomeFragment extends Fragment {
                 valueAdapterData.add(value1);
 
 
-                Value value2 = new Value("Food", hm.get("TFood"), hm.get("Food"), "3456");
+                Value value2 = new Value("Food", hm.get("TFood"), hm.get("Food"), new Integer(Integer.parseInt(hm.get("TFood")) - Integer.parseInt(hm.get("Food"))).toString());
                 valueAdapterData.add(value2);
 
-                Value value3 = new Value("Entertainment", hm.get("TEntertainment"), hm.get("Entertainment"), "3456");
+                Value value3 = new Value("Entertainment", hm.get("TEntertainment"), hm.get("Entertainment"), new Integer(Integer.parseInt(hm.get("TEntertainment")) - Integer.parseInt(hm.get("Entertainment"))).toString());
                 valueAdapterData.add(value3);
 
-                Value value4 = new Value("Electronics", hm.get("TElectronics"), hm.get("Electronics"), "3456");
+                Value value4 = new Value("Electronics", hm.get("TElectronics"), hm.get("Electronics"), new Integer(Integer.parseInt(hm.get("TElectronics")) - Integer.parseInt(hm.get("Electronics"))).toString());
                 valueAdapterData.add(value4);
 
-                Value value5 = new Value("Fashion", hm.get("TFashion"), hm.get("Fashion"), "3456");
+                Value value5 = new Value("Fashion", hm.get("TFashion"), hm.get("Fashion"), new Integer(Integer.parseInt(hm.get("TFashion")) - Integer.parseInt(hm.get("Fashion"))).toString());
                 valueAdapterData.add(value5);
 
-                Value value6 = new Value("Other", hm.get("TOther"), hm.get("Other"), "3456");
+                Value value6 = new Value("Other", hm.get("TOther"), hm.get("Other"), new Integer(Integer.parseInt(hm.get("TOther")) - Integer.parseInt(hm.get("Other"))).toString());
                 valueAdapterData.add(value6);
 
-                Value value7 = new Value("Total", "00000", "00000", "00000");
+                Integer budgetTotal = Integer.parseInt(hm.get("TFood")) + Integer.parseInt(hm.get("TEntertainment")) + Integer.parseInt(hm.get("TElectronics")) + Integer.parseInt(hm.get("TFashion")) + Integer.parseInt(hm.get("TOther"));
+                Integer spendsTotal = Integer.parseInt(hm.get("Food")) + Integer.parseInt(hm.get("Entertainment")) + Integer.parseInt(hm.get("Electronics")) + Integer.parseInt(hm.get("Fashion")) + Integer.parseInt(hm.get("Other"));
+
+                Value value7 = new Value("Total", budgetTotal.toString(), spendsTotal.toString(), new Integer(budgetTotal - spendsTotal).toString());
                 valueAdapterData.add(value7);
 
             }
