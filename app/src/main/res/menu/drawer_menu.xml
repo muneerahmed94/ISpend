@@ -33,6 +33,11 @@
             android:title="Summary - Bar Graph"
             android:icon="@drawable/ic_equalizer_black_24dp">
         </item>
+        <item
+            android:id="@+id/id_offers"
+            android:title="Offers"
+            android:icon="@drawable/ic_star_border_black_24dp">
+        </item>
     </group>
 
     <group

@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.rhcloud.httpispend_jntuhceh.ispend.OffersFragment">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/labelSpinnerCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:layout_marginLeft="15dp"
+            android:text="Category: "
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/labelSpinnerCategory"
+            android:layout_toRightOf="@id/labelSpinnerCategory"
+            android:drawSelectorOnTop="true" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:textColor="@color/black"
+        android:text="Showing offers for: "
+        android:id="@+id/textViewCategory"
+        android:textStyle="bold"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listViewOffers"
+        android:layout_marginTop="10dp"/>
+</LinearLayout>

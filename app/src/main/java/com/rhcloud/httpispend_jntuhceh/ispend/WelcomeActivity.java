@@ -133,6 +133,15 @@ public class WelcomeActivity extends AppCompatActivity {
                         new BackgroundTaskBarGraph(userLocalStore.getLoggedInUser().email).execute();
                         break;
 
+                    case R.id.id_offers:
+                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.mainContainer, new OffersFragment());
+                        fragmentTransaction.commit();
+                        getSupportActionBar().setTitle("Offers");
+                        drawerLayout.closeDrawers();
+                        item.setChecked(true);
+                        break;
+
                     case R.id.id_logout:
                         userLocalStore.clearUserData();
                         userLocalStore.setUserLoggedIn(false);
