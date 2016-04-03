@@ -2,7 +2,9 @@ package com.rhcloud.httpispend_jntuhceh.ispend;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,7 +18,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText editTextEmail, editTextPassword;
     String email, password;
     UserLocalStore userLocalStore;
-
+    TextView textViewEmail, textViewPassowrd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        textViewEmail = (TextView) findViewById(R.id.textViewEmail);
+        textViewPassowrd = (TextView) findViewById(R.id.textViewPassword);
+
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
 
@@ -46,6 +51,32 @@ public class LoginActivity extends AppCompatActivity {
 
                 User user = new User(email, password);
                 authenticate(user);
+            }
+        });
+
+        editTextEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    textViewEmail.setTextColor(Color.parseColor("#689f38"));
+                    textViewEmail.setTypeface(null, Typeface.BOLD);
+                } else {
+                    textViewEmail.setTextColor(Color.parseColor("#6d6d6d"));
+                    textViewEmail.setTypeface(null, Typeface.NORMAL);
+                }
+            }
+        });
+
+        editTextPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    textViewPassowrd.setTextColor(Color.parseColor("#689f38"));
+                    textViewPassowrd.setTypeface(null, Typeface.BOLD);
+                } else {
+                    textViewPassowrd.setTextColor(Color.parseColor("#6d6d6d"));
+                    textViewPassowrd.setTypeface(null, Typeface.NORMAL);
+                }
             }
         });
     }

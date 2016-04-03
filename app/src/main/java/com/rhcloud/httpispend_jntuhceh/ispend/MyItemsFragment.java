@@ -35,6 +35,9 @@ public class MyItemsFragment extends Fragment {
         listView = (ListView) view.findViewById(R.id.listView);
         listView.setAdapter(itemAdapter);
 
+        Items items = new Items("Name", "Category", "Price");
+        itemAdapter.add(items);
+
         try {
             jsonObject = new JSONObject(json_string);
             jsonArray = jsonObject.getJSONArray("server_response");

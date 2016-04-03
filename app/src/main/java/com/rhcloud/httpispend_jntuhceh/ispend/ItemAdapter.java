@@ -1,6 +1,8 @@
 package com.rhcloud.httpispend_jntuhceh.ispend;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +62,19 @@ public class ItemAdapter extends ArrayAdapter {
         itemHolder.textViewItemName.setText(items.getItemName());
         itemHolder.textViewItemCategory.setText(items.getItemCategory());
         itemHolder.textViewItemPrice.setText(items.getItemPrice());
+
+        if(items.getItemName().equals("Name")) {
+            itemHolder.textViewItemName.setTypeface(null, Typeface.BOLD);
+            itemHolder.textViewItemName.setTextColor(Color.parseColor("#000000"));
+        }
+        if(items.getItemCategory().equals("Category")) {
+            itemHolder.textViewItemCategory.setTypeface(null, Typeface.BOLD);
+            itemHolder.textViewItemCategory.setTextColor(Color.parseColor("#000000"));
+        }
+        if(items.getItemPrice().equals("Price")) {
+            itemHolder.textViewItemPrice.setTypeface(null, Typeface.BOLD);
+            itemHolder.textViewItemPrice.setTextColor(Color.parseColor("#000000"));
+        }
 
         return row;
     }

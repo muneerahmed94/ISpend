@@ -223,7 +223,7 @@ public class SetupBudgetFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    textViewFood.setTextColor(Color.parseColor("#009688"));
+                    textViewFood.setTextColor(Color.parseColor("#689f38"));
                     textViewFood.setTypeface(null, Typeface.BOLD);
                 } else {
                     textViewFood.setTextColor(Color.parseColor("#6d6d6d"));
@@ -236,7 +236,7 @@ public class SetupBudgetFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus) {
-                    textViewEntertainment.setTextColor(Color.parseColor("#009688"));
+                    textViewEntertainment.setTextColor(Color.parseColor("#689f38"));
                     textViewEntertainment.setTypeface(null,Typeface.BOLD);
                 }
                 else {
@@ -250,7 +250,7 @@ public class SetupBudgetFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus) {
-                    textViewElectronics.setTextColor(Color.parseColor("#009688"));
+                    textViewElectronics.setTextColor(Color.parseColor("#689f38"));
                     textViewElectronics.setTypeface(null,Typeface.BOLD);
                 }
                 else {
@@ -264,7 +264,7 @@ public class SetupBudgetFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus) {
-                    textViewFashion.setTextColor(Color.parseColor("#009688"));
+                    textViewFashion.setTextColor(Color.parseColor("#689f38"));
                     textViewFashion.setTypeface(null,Typeface.BOLD);
                 }
                 else {
@@ -278,7 +278,7 @@ public class SetupBudgetFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus) {
-                    textViewOther.setTextColor(Color.parseColor("#009688"));
+                    textViewOther.setTextColor(Color.parseColor("#689f38"));
                     textViewOther.setTypeface(null,Typeface.BOLD);
                 }
                 else {

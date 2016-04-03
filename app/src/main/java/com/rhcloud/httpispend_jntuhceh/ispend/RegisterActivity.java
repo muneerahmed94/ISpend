@@ -2,7 +2,9 @@ package com.rhcloud.httpispend_jntuhceh.ispend;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,6 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText editTextName, editTextEmail, editTextMobile, editTextPassword,editTextConfirmPassword;
     Button buttonRegister;
     String name, email, mobile, accountNumber, password, confirmPassword;
+    TextView textViewName, textViewEmail, textViewMobile,textViewPassword, textViewConfirmPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,77 @@ public class RegisterActivity extends AppCompatActivity {
                 else {
                     User user = new User(email, mobile, name, password);
                     registerUser(user);
+                }
+            }
+        });
+        
+        textViewName = (TextView) findViewById(R.id.textViewName);
+        textViewEmail = (TextView) findViewById(R.id.textViewEmail);
+        textViewMobile = (TextView) findViewById(R.id.textViewMobile);
+        textViewPassword = (TextView) findViewById(R.id.textViewPassword);
+        textViewConfirmPassword = (TextView) findViewById(R.id.textViewConfirmPassword);
+
+        editTextName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    textViewName.setTextColor(Color.parseColor("#689f38"));
+                    textViewName.setTypeface(null, Typeface.BOLD);
+                } else {
+                    textViewName.setTextColor(Color.parseColor("#6d6d6d"));
+                    textViewName.setTypeface(null, Typeface.NORMAL);
+                }
+            }
+        });
+
+        editTextEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    textViewEmail.setTextColor(Color.parseColor("#689f38"));
+                    textViewEmail.setTypeface(null, Typeface.BOLD);
+                } else {
+                    textViewEmail.setTextColor(Color.parseColor("#6d6d6d"));
+                    textViewEmail.setTypeface(null, Typeface.NORMAL);
+                }
+            }
+        });
+
+        editTextMobile.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    textViewMobile.setTextColor(Color.parseColor("#689f38"));
+                    textViewMobile.setTypeface(null, Typeface.BOLD);
+                } else {
+                    textViewMobile.setTextColor(Color.parseColor("#6d6d6d"));
+                    textViewMobile.setTypeface(null, Typeface.NORMAL);
+                }
+            }
+        });
+
+        editTextPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    textViewPassword.setTextColor(Color.parseColor("#689f38"));
+                    textViewPassword.setTypeface(null, Typeface.BOLD);
+                } else {
+                    textViewPassword.setTextColor(Color.parseColor("#6d6d6d"));
+                    textViewPassword.setTypeface(null, Typeface.NORMAL);
+                }
+            }
+        });
+
+        editTextConfirmPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    textViewConfirmPassword.setTextColor(Color.parseColor("#689f38"));
+                    textViewConfirmPassword.setTypeface(null, Typeface.BOLD);
+                } else {
+                    textViewConfirmPassword.setTextColor(Color.parseColor("#6d6d6d"));
+                    textViewConfirmPassword.setTypeface(null, Typeface.NORMAL);
                 }
             }
         });
