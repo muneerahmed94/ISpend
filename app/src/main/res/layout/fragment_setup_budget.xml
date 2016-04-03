@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearance"
         android:text="Food"
+        android:textColor="@color/text_color"
         android:layout_marginTop="10dp"
         android:id="@+id/textViewFood" />
 
@@ -29,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editTextFood"
+        android:textColor="@color/text_color"
         android:inputType="number"/>
 
     <TextView
@@ -36,12 +38,14 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearance"
         android:text="Entertainment"
+        android:textColor="@color/text_color"
         android:layout_marginTop="8dp"
         android:id="@+id/textViewEntertainment" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
         android:id="@+id/editTextEntertainment"
         android:inputType="number"/>
 
@@ -50,18 +54,21 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearance"
         android:text="Electronics"
+        android:textColor="@color/text_color"
         android:layout_marginTop="8dp"
         android:id="@+id/textViewElectronics" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
         android:id="@+id/editTextElectronics"
         android:inputType="number" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
         android:textAppearance="?android:attr/textAppearance"
         android:text="Fashion"
         android:layout_marginTop="8dp"
@@ -70,12 +77,14 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
         android:id="@+id/editTextFashion"
         android:inputType="number" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
         android:textAppearance="?android:attr/textAppearance"
         android:text="Other"
         android:layout_marginTop="8dp"
@@ -84,6 +93,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/text_color"
         android:id="@+id/editTextOther"
         android:inputType="number" />
 
@@ -91,6 +101,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Update Budget"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
         android:id="@+id/buttonSetupBudget"
         android:layout_marginTop="15dp" />
 

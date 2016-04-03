@@ -86,6 +86,8 @@ public class SetupBudgetFragment extends Fragment {
         highlightTextViewsOnEditTextFocus();
         onValueChangedEditTexts();
 
+        editTextFood.requestFocus();
+
         return view;
     }
 
