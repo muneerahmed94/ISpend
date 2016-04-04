@@ -8,12 +8,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class MyItemsFragment extends Fragment {
 
@@ -58,6 +65,48 @@ public class MyItemsFragment extends Fragment {
             e.printStackTrace();
         }
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                JSONObject jo = null;
+                String purchaseTime = "";
+
+                if(position > 0) {
+                    try {
+                        jo = jsonArray.getJSONObject(position-1);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        purchaseTime = jo.getString("PurchaseTime");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    Toast.makeText(getContext(), getDisplayDateTimeString(purchaseTime), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         return view;
+    }
+
+    String getDisplayDateTimeString(String inputDateTimeString) {
+        String displayDateTimeString = "";
+
+        DateFormat displayFormat = new SimpleDateFormat("EEE, MMM d, yyyy hh:mm a");
+        displayFormat.setTimeZone(TimeZone.getTimeZone("Asia/Calcutta"));
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date inputDateTimeObject = new Date();
+        try {
+            inputDateTimeObject = df.parse(inputDateTimeString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        displayDateTimeString = displayFormat.format(inputDateTimeObject).toString();
+
+        return displayDateTimeString;
     }
 }
