@@ -3,27 +3,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5F5"
+    android:padding="16dp"
     tools:context="com.rhcloud.httpispend_jntuhceh.ispend.PurchaseItemFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Item Name"
+        android:textColor="@color/text_color"
+        android:id="@+id/textViewItemName"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewItemName"
         android:id="@+id/editTextItemName"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:textColor="@color/text_color"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewItemCategory"
+        android:layout_below="@+id/editTextItemName"
         android:layout_marginTop="10dp"
-        android:hint="Item Name" />
+        android:text="Item Category"
+        android:textColor="@color/text_color" />
+
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/autoCompleteTextViewItemCategory"
+        android:layout_below="@+id/textViewItemCategory" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewItemPrice"
+        android:layout_below="@id/autoCompleteTextViewItemCategory"
+        android:layout_marginTop="10dp"
+        android:text="Item Price" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editTextItemPrice"
-        android:hint="Item Price"
         android:inputType="number"
-        android:layout_below="@+id/autoCompleteTextViewItemCategory"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="25dp" />
+        android:layout_below="@+id/textViewItemPrice" />
 
     <Button
         android:layout_width="match_parent"
@@ -31,18 +56,9 @@
         android:text="Purchase"
         android:id="@+id/buttonPurchaseItem"
         android:layout_below="@+id/editTextItemPrice"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
         android:layout_marginTop="25dp" />
 
-    <AutoCompleteTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/autoCompleteTextViewItemCategory"
-        android:layout_marginTop="25dp"
-        android:hint="Item Category"
-        android:layout_below="@+id/editTextItemName"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

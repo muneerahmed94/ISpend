@@ -2,6 +2,7 @@ package com.rhcloud.httpispend_jntuhceh.ispend;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -18,10 +19,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class PurchaseItemFragment extends Fragment {
@@ -38,6 +42,9 @@ public class PurchaseItemFragment extends Fragment {
     NavigationView navigationView;
     FragmentTransaction fragmentTransaction;
 
+    TextView textViewItemName, textViewItemCategory, textViewItemPrice;
+//    Spinner spinnerItemCategory;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -45,13 +52,33 @@ public class PurchaseItemFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_purchase_item, container, false);
         view.setBackgroundColor(Color.WHITE);
 
+        textViewItemName = (TextView) view.findViewById(R.id.textViewItemName);
+        textViewItemCategory = (TextView) view.findViewById(R.id.textViewItemCategory);
+        textViewItemPrice = (TextView) view.findViewById(R.id.textViewItemPrice);
+
         editTextItemName = (EditText) view.findViewById(R.id.editTextItemName);
         autoCompleteTextViewItemCategory = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTextViewItemCategory);
         editTextItemPrice = (EditText) view.findViewById(R.id.editTextItemPrice);
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), android.R.layout.select_dialog_item, categories);
+        final ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), android.R.layout.select_dialog_item, categories);
         autoCompleteTextViewItemCategory.setThreshold(1);
         autoCompleteTextViewItemCategory.setAdapter(arrayAdapter);
+
+
+//        ArrayAdapter spinnerAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item, categories);
+//        spinnerItemCategory = (Spinner) view.findViewById(R.id.spinnerItemCategory);
+//        spinnerItemCategory.setAdapter(spinnerAdapter);
+//        spinnerItemCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(getContext(), arrayAdapter.getItem(position).toString(), Toast.LENGTH_SHORT).show
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
         buttonPurchase = (Button) view.findViewById(R.id.buttonPurchaseItem);
         buttonPurchase.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +93,53 @@ public class PurchaseItemFragment extends Fragment {
             }
         });
 
+        highlightTextViewsOnEditTextFocus();
+
+
+
         return view;
+    }
+
+    private void highlightTextViewsOnEditTextFocus() {
+        editTextItemName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    textViewItemName.setTextColor(Color.parseColor("#689f38"));
+                    textViewItemName.setTypeface(null, Typeface.BOLD);
+                } else {
+                    textViewItemName.setTextColor(Color.parseColor("#6d6d6d"));
+                    textViewItemName.setTypeface(null, Typeface.NORMAL);
+                }
+            }
+        });
+
+        autoCompleteTextViewItemCategory.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    textViewItemCategory.setTextColor(Color.parseColor("#689f38"));
+                    textViewItemCategory.setTypeface(null, Typeface.BOLD);
+                } else {
+                    textViewItemCategory.setTextColor(Color.parseColor("#6d6d6d"));
+                    textViewItemCategory.setTypeface(null, Typeface.NORMAL);
+                }
+            }
+        });
+
+        editTextItemPrice.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) {
+                    textViewItemPrice.setTextColor(Color.parseColor("#689f38"));
+                    textViewItemPrice.setTypeface(null,Typeface.BOLD);
+                }
+                else {
+                    textViewItemPrice.setTextColor(Color.parseColor("#6d6d6d"));
+                    textViewItemPrice.setTypeface(null, Typeface.NORMAL);
+                }
+            }
+        });
     }
 
     @Override
