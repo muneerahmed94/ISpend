@@ -28,6 +28,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashSet;
+
 public class PurchaseItemFragment extends Fragment {
 
     EditText editTextItemName, editTextItemPrice;
@@ -88,8 +90,10 @@ public class PurchaseItemFragment extends Fragment {
                 itemCategory = autoCompleteTextViewItemCategory.getEditableText().toString();
                 itemPrice = editTextItemPrice.getText().toString();
 
-                Purchase purchase = new Purchase(buyer, itemName, itemPrice, itemCategory);
-                purchaseItem(purchase);
+                if(validate()) {
+                    Purchase purchase = new Purchase(buyer, itemName, itemPrice, itemCategory);
+                    purchaseItem(purchase);
+                }
             }
         });
 
@@ -130,11 +134,10 @@ public class PurchaseItemFragment extends Fragment {
         editTextItemPrice.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus) {
+                if (hasFocus) {
                     textViewItemPrice.setTextColor(Color.parseColor("#689f38"));
-                    textViewItemPrice.setTypeface(null,Typeface.BOLD);
-                }
-                else {
+                    textViewItemPrice.setTypeface(null, Typeface.BOLD);
+                } else {
                     textViewItemPrice.setTextColor(Color.parseColor("#6d6d6d"));
                     textViewItemPrice.setTypeface(null, Typeface.NORMAL);
                 }
@@ -179,5 +182,62 @@ public class PurchaseItemFragment extends Fragment {
                 navigationView.setCheckedItem(R.id.id_home);
             }
         });
+    }
+
+    public boolean validate() {
+        String itemName = editTextItemName.getText().toString();
+        String itemCategory = autoCompleteTextViewItemCategory.getEditableText().toString();
+        String itemPrice = editTextItemPrice.getText().toString();
+
+        if(!isValidItemName(itemName)) {
+            editTextItemName.setError("Enter item name");
+            editTextItemName.requestFocus();
+            return false;
+        }
+
+        if(!isValidItemCategory(itemCategory)) {
+            autoCompleteTextViewItemCategory.setError("Enter valid item category");
+            autoCompleteTextViewItemCategory.requestFocus();
+            return false;
+        }
+
+        if(!isValidItemPrice(itemPrice)) {
+            editTextItemPrice.setError("Enter valid item price");
+            editTextItemPrice.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean isValidItemName(String itemName) {
+        if(itemName != null && itemName.length() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isValidItemCategory(String itemCategory) {
+        HashSet<String> hs = new HashSet<String>();
+        for(String category : categories) {
+            hs.add(category);
+        }
+
+        if(hs.contains(itemCategory)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isValidItemPrice(String itemPrice) {
+        if(itemName != null && itemName.length() > 0) {
+            try {
+                Float.parseFloat(itemPrice);
+                return true;
+            }catch (Exception e) {
+                return false;
+            }
+        }
+        return false;
     }
 }
