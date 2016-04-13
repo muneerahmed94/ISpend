@@ -77,6 +77,42 @@ public class ValueAdapter extends ArrayAdapter {
             valueHolder.textViewRemaining.setTypeface(null, Typeface.BOLD);
         }
 
+        Double budget = 0.0,spends = 0.0, remaining = 0.0;
+
+        boolean isLabel = true;
+
+        if(!value.getBudget().equals("Budget") && !value.getSpends().equals("Spends")) {
+            budget = Double.parseDouble(value.getBudget());
+            spends = Double.parseDouble(value.getSpends());
+            isLabel = false;
+        }
+
+
+        if(!isLabel) {
+            valueHolder.textViewBudget.setTextColor(Color.parseColor("#337ab7"));
+
+
+            if(spends > budget) {
+                valueHolder.textViewSpends.setTextColor(Color.RED);
+                valueHolder.textViewRemaining.setTextColor(Color.RED);
+            }
+            else if(spends > budget * 0.7) {
+                valueHolder.textViewSpends.setTextColor(Color.parseColor("#f0ad4e"));
+                valueHolder.textViewRemaining.setTextColor(Color.parseColor("#f0ad4e"));
+            }
+            else {
+                valueHolder.textViewSpends.setTextColor(Color.parseColor("#689f38"));
+                valueHolder.textViewRemaining.setTextColor(Color.parseColor("#689f38"));
+            }
+        }
+        else {
+            valueHolder.textViewBudget.setTextColor(Color.parseColor("#000000"));
+            valueHolder.textViewSpends.setTextColor(Color.parseColor("#000000"));
+            valueHolder.textViewRemaining.setTextColor(Color.parseColor("#000000"));
+        }
+
+        valueHolder.textViewCategory.setTextColor(Color.parseColor("#000000"));
+
         return row;
     }
 
