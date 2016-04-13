@@ -19,4 +19,16 @@
         android:id="@+id/listViewData"
         android:layout_marginTop="15dp"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Setup Budget"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/buttonSetupBudget"/>
+
 </RelativeLayout>

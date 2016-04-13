@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -49,8 +51,10 @@ public class LoginActivity extends AppCompatActivity {
                 email = editTextEmail.getText().toString();
                 password = editTextPassword.getText().toString();
 
-                User user = new User(email, password);
-                authenticate(user);
+                if(validate()) {
+                    User user = new User(email, password);
+                    authenticate(user);
+                }
             }
         });
 
@@ -109,5 +113,41 @@ public class LoginActivity extends AppCompatActivity {
         userLocalStore.storeUserData(returnedUser);
         userLocalStore.setUserLoggedIn(true);
         startActivity(new Intent(this, WelcomeActivity.class));
+    }
+
+    public boolean validate() {
+        String email = editTextEmail.getText().toString();
+        if(!isValidEmail(email)) {
+            editTextEmail.setError("Enter a valid email");
+            editTextEmail.requestFocus();
+            return false;
+        }
+
+        String password = editTextPassword.getText().toString();
+        if(!isValidPassword(password)) {
+            editTextPassword.setError("Password should have at least 6 characters");
+            editTextPassword.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
+    // validating email id
+    private boolean isValidEmail(String email) {
+        String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    // validating password with retype password
+    private boolean isValidPassword(String pass) {
+        if (pass != null && pass.length() >= 6) {
+            return true;
+        }
+        return false;
     }
 }

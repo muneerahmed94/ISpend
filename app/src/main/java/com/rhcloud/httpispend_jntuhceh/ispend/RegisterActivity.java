@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.BufferedWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -55,10 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
                 password = editTextPassword.getText().toString();
                 confirmPassword = editTextConfirmPassword.getText().toString();
 
-                if(!password.equals(confirmPassword)) {
-                    showPasswordConfirmPasswordError();
-                }
-                else {
+                if(validate()) {
                     User user = new User(email, mobile, name, password);
                     registerUser(user);
                 }
@@ -155,5 +154,81 @@ public class RegisterActivity extends AppCompatActivity {
         dialogBuilder.setMessage("Password and Confirm Password should match");
         dialogBuilder.setPositiveButton("OK", null);
         dialogBuilder.show();
+    }
+
+    public boolean validate() {
+        String name = editTextName.getText().toString();
+        if(!isValidName(name)) {
+            editTextName.setError("Enter a valid name");
+            editTextName.requestFocus();
+            return false;
+        }
+
+        String email = editTextEmail.getText().toString();
+        if(!isValidEmail(email)) {
+            editTextEmail.setError("Enter a valid email");
+            editTextEmail.requestFocus();
+            return false;
+        }
+
+        String mobile = editTextMobile.getText().toString();
+        if(!isValidMobile(mobile)) {
+            editTextMobile.setError("Enter a 10 digit mobile number");
+            editTextMobile.requestFocus();
+            return false;
+        }
+
+        String password = editTextPassword.getText().toString();
+        if(!isValidPassword(password)) {
+            editTextPassword.setError("Password should have at least 6 characters");
+            editTextPassword.requestFocus();
+            return false;
+        }
+
+        String confirmPassword = editTextConfirmPassword.getText().toString();
+        if(!isValidConfirmPassword(password, confirmPassword)) {
+            editTextConfirmPassword.setError("Password and Confirm Password don't match");
+            editTextConfirmPassword.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isValidName(String name) {
+        if (name != null && name.length() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isValidEmail(String email) {
+        String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    private boolean isValidMobile(String mobile) {
+        if (mobile != null && mobile.length() == 10) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isValidPassword(String pass) {
+        if (pass != null && pass.length() >= 6) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isValidConfirmPassword(String password, String confirmPassword) {
+        if (password != null && password.equals(confirmPassword)) {
+            return true;
+        }
+        return false;
     }
 }

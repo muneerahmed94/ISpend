@@ -36,7 +36,7 @@
         android:id="@+id/editTextEmail"
         android:textColor="@color/text_color"
         android:layout_below="@+id/textViewEmail"
-        android:inputType="textEmailAddress"/>
+        android:inputType="textEmailAddress" />
 
     <TextView
         android:layout_width="match_parent"

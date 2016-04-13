@@ -1,5 +1,6 @@
 package com.rhcloud.httpispend_jntuhceh.ispend;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -8,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -23,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -40,6 +43,39 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.apache.commons.io.IOUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.HashMap;
 
 public class HomeFragment extends Fragment {
 
@@ -51,12 +87,27 @@ public class HomeFragment extends Fragment {
     ListView listViewData;
 
     ProgressDialog progressDialog;
+    Button buttonSetupBudget;
+
+    View viewGlobal;
+    private WelcomeActivity myContext1;
+
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle actionBarDrawerToggle;
+    Toolbar toolbar;
+
+    @Override
+    public void onAttach(Activity activity) {
+        myContext1=(WelcomeActivity) activity;
+        super.onAttach(activity);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view  = inflater.inflate(R.layout.fragment_home, container, false);
+        viewGlobal = view;
         view.setBackgroundColor(Color.WHITE);
 
         userLocalStore = new UserLocalStore(getContext());
@@ -67,6 +118,22 @@ public class HomeFragment extends Fragment {
         progressDialog.setMessage("Please wait...");
 
         new BackgroundTaskBarGraph(userLocalStore.getLoggedInUser().email, view).execute();
+
+        drawerLayout = (DrawerLayout) myContext1.findViewById(R.id.drawer_layout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(myContext1, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
+        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+        navigationView = (NavigationView) myContext1.findViewById(R.id.navigationView);
+
+        buttonSetupBudget = (Button) view.findViewById(R.id.buttonSetupBudget);
+        buttonSetupBudget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myContext1.getSupportActionBar().setTitle("Setup Budget");
+                drawerLayout.closeDrawers();
+                navigationView.setCheckedItem(R.id.id_setup_budget);
+                new BackgroundTaskGetBudget(userLocalStore.getLoggedInUser().email).execute();
+            }
+        });
 
         return view;
     }
@@ -192,6 +259,99 @@ public class HomeFragment extends Fragment {
             }
             else {
                 Toast.makeText(getContext(), "unable to retrieve budget", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    class BackgroundTaskGetBudget extends AsyncTask<Void, Void, Budget> {
+
+        String email;
+
+        public BackgroundTaskGetBudget(String email) {
+            this.email = email;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog.show();
+        }
+
+        @Override
+        protected Budget doInBackground(Void... params) {
+            Budget returnedBudget;
+            String server_url = "";
+            server_url = "http://ispend-jntuhceh.rhcloud.com/budget/get_budget.php";
+
+            try
+            {
+
+                URL url = new URL(server_url);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                Uri.Builder builder = new Uri.Builder().appendQueryParameter("Email", email);
+                String query = builder.build().getEncodedQuery();
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                writer.write(query);
+                writer.flush();
+                writer.close();
+                os.close();
+                conn.connect();
+                InputStream in = new BufferedInputStream(conn.getInputStream());
+                String response = IOUtils.toString(in, "UTF-8");
+                JSONObject jResponse = new JSONObject(response);
+
+                if (jResponse.length() == 0)
+                {
+                    returnedBudget = null;
+                }
+                else
+                {
+                    String food = jResponse.getString("Food");
+                    String entertainment = jResponse.getString("Entertainment");
+                    String electronics = jResponse.getString("Electronics");
+                    String fashion = jResponse.getString("Fashion");
+                    String other = jResponse.getString("Other");
+                    String total = "";
+                    total = jResponse.getString("Total");
+
+                    returnedBudget = new Budget(email, food, entertainment, electronics, fashion, other, total);
+                }
+
+                return returnedBudget;
+
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Budget returnedBudget) {
+            progressDialog.dismiss();
+            if(returnedBudget != null) {
+                Bundle bundle = new Bundle();
+                bundle.putString("Food", returnedBudget.food);
+                bundle.putString("Entertainment", returnedBudget.entertainment);
+                bundle.putString("Electronics", returnedBudget.electronics);
+                bundle.putString("Fashion", returnedBudget.fashion);
+                bundle.putString("Other", returnedBudget.other);
+                bundle.putString("Total", returnedBudget.total);
+
+
+                FragmentManager fragManager = myContext1.getSupportFragmentManager();
+                fragmentTransaction = fragManager.beginTransaction();
+
+                myContext1.getSupportActionBar().setTitle("Setup Budget");
+
+                SetupBudgetFragment setupBudgetFragment = new SetupBudgetFragment();
+                setupBudgetFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.mainContainer, setupBudgetFragment);
+                fragmentTransaction.commit();
+
+            }
+            else {
+                Toast.makeText(getContext(), "unable to retrive budget", Toast.LENGTH_SHORT).show();
             }
         }
     }
